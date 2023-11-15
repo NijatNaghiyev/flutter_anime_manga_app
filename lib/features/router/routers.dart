@@ -1,0 +1,16 @@
+enum MyRouters {
+  home,
+  search,
+  animeSeeAll,
+  mangaSeeAll,
+  peopleSeeAll,
+  charactersSeeAll,
+  seasonal,
+  mylist,
+  core,
+  started,
+  splash,
+  login,
+  signup,
+  info,
+}

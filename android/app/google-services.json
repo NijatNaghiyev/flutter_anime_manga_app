@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "140261152873",
+    "project_id": "flutter-anime-manga-app",
+    "storage_bucket": "flutter-anime-manga-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140261152873:android:d089d4ca081012a4e22af8",
+        "android_client_info": {
+          "package_name": "com.example.flutter_anime_manga_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHEexaWE8yBYLrfh2zm2BMBTHHMnT8AEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
