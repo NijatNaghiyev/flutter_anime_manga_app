@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_manga_app/constants/theme/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,10 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../features/state/bloc/search-screen/search/data_search_bloc.dart';
 import '../../../features/state/cubit/core/bottom_nav_bar_cubit.dart';
+import '../../../features/state/cubit/drawer/drawer_image_cubit.dart';
+import '../drawer/drawer_screen.dart';
+
+GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
 class CoreScreen extends StatefulWidget {
   const CoreScreen({super.key, required this.navigationShell});
@@ -23,6 +28,7 @@ class _CoreScreenState extends State<CoreScreen> {
             SearchInitialEvent(),
           );
     }
+
     widget.navigationShell.goBranch(
       index,
       initialLocation: index == widget.navigationShell.currentIndex,
@@ -30,8 +36,18 @@ class _CoreScreenState extends State<CoreScreen> {
   }
 
   @override
+  void initState() {
+    FirebaseAuth.instance.currentUser?.reload();
+
+    context.read<DrawerImageCubit>().profilePhotoUrl();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerScreen(),
+      key: scaffoldKey,
       body: widget.navigationShell,
       bottomNavigationBar: BlocBuilder<BottomNavBarCubit, bool>(
         builder: (context, state) {

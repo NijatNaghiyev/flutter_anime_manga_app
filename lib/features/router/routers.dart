@@ -13,4 +13,6 @@ enum MyRouters {
   login,
   signup,
   info,
+  profile,
+  settings,
 }

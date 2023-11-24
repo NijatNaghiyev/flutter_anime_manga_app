@@ -5,6 +5,8 @@ import 'package:flutter_anime_manga_app/view/screens/seasonal/pages/season_last_
 import 'package:flutter_anime_manga_app/view/screens/seasonal/pages/season_now_page.dart';
 import 'package:flutter_anime_manga_app/view/screens/seasonal/pages/season_upcoming_page.dart';
 
+import '../drawer/widgets/build_open_drawer.dart';
+
 class SeasonalScreen extends StatefulWidget {
   const SeasonalScreen({super.key});
 
@@ -47,8 +49,8 @@ class _SeasonalScreenState extends State<SeasonalScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      drawer: const Drawer(),
       appBar: AppBar(
+        leading: buildOpenDrawer(context),
         backgroundColor: MyColors.primary,
         title: const Text(
           'Seasonal',
@@ -58,13 +60,12 @@ class _SeasonalScreenState extends State<SeasonalScreen>
         ),
         bottom: TabBar(
           indicatorColor: MyColors.primary,
-          labelColor: Theme.of(context).textTheme.bodySmall!.color,
+          labelColor: Colors.white,
           labelStyle: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
-          unselectedLabelColor:
-              Theme.of(context).textTheme.bodySmall!.color!.withOpacity(0.6),
+          unselectedLabelColor: Colors.white38,
           physics: const BouncingScrollPhysics(),
           isScrollable: true,
           controller: _tabController,

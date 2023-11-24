@@ -94,15 +94,6 @@ class _CustomAppBarBottomState extends State<CustomAppBarBottom> {
                         ),
                       ),
                     ),
-                    DropdownMenuItem(
-                      value: SearchType.users,
-                      child: Text(
-                        SearchType.users.name.capitalize(),
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.bodySmall!.color,
-                        ),
-                      ),
-                    ),
                   ],
                 );
               },

@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../features/state/bloc/search-screen/search/data_search_bloc.dart';
 import '../../widgets/center_loading_indicator.dart';
+import '../drawer/widgets/build_open_drawer.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -45,11 +46,16 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Drawer(),
       appBar: AppBar(
+        leading: buildOpenDrawer(context),
         elevation: 10,
         backgroundColor: MyColors.primary,
-        title: const Text('Search'),
+        title: const Text(
+          'Search',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(80.0),
           child: CustomAppBarBottom(

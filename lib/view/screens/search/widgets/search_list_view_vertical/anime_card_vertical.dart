@@ -6,12 +6,15 @@ import 'package:flutter_anime_manga_app/data/models/mylist/mylist_model.dart';
 import 'package:flutter_anime_manga_app/view/screens/search/widgets/search_filter_row.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../constants/edit_list_bottom_sheet/status_anime.dart';
+import '../../../../../constants/edit_list_bottom_sheet/status_colors.dart';
 import '../../../../../constants/theme/colors.dart';
-import '../../../../info/info_screen.dart';
-import '../../../../widgets/edit_list_bottom_sheet.dart';
+import '../../../../../data/services/firestore_database/mylist_anime_store.dart';
+import '../../../../widgets/show_edit_list_bottom_sheet.dart';
+import '../../../info/info_screen.dart';
 
-class AnimeCardVertical extends StatelessWidget {
-  AnimeCardVertical({
+class AnimeCardVertical extends StatefulWidget {
+  const AnimeCardVertical({
     super.key,
     required this.index,
     this.imageUrl,
@@ -39,7 +42,24 @@ class AnimeCardVertical extends StatelessWidget {
   final int? scoredBy;
   final double? scored;
 
+  @override
+  State<AnimeCardVertical> createState() => _AnimeCardVerticalState();
+}
+
+class _AnimeCardVerticalState extends State<AnimeCardVertical> {
   final formatter = NumberFormat('#,###,###');
+  ValueNotifier<List<MylistModel>> mylistValueNotifier = ValueNotifier([]);
+
+  void initData() async {
+    await MylistAnimeStore.getMylist()
+        .then((value) => mylistValueNotifier.value = value);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +67,8 @@ class AnimeCardVertical extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 500),
       openBuilder: (context, action) {
         return InfoScreen(
-          malId: malId,
-          type: searchType,
+          malId: widget.malId,
+          type: widget.searchType,
         );
       },
       clipBehavior: Clip.hardEdge,
@@ -62,21 +82,21 @@ class AnimeCardVertical extends StatelessWidget {
       },
       closedBuilder: (context, action) => Column(
         children: [
-          if (index == 0 && isSearch) const SearchFilterRow(),
+          if (widget.index == 0 && widget.isSearch) const SearchFilterRow(),
           SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.15,
+            height: MediaQuery.sizeOf(context).height * 0.18,
             child: Card(
               clipBehavior: Clip.hardEdge,
               child: Row(
                 children: [
                   SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.15,
+                    height: MediaQuery.sizeOf(context).height * 0.18,
                     width: MediaQuery.sizeOf(context).width * 0.2,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
                         Image.network(
-                          imageUrl.toString(),
+                          widget.imageUrl.toString(),
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return const Center(
@@ -87,7 +107,7 @@ class AnimeCardVertical extends StatelessWidget {
                             );
                           },
                         ),
-                        if (scored != null)
+                        if (widget.scored != null)
                           Positioned(
                             bottom: MediaQuery.sizeOf(context).height * 0.01,
                             right: 0,
@@ -103,7 +123,7 @@ class AnimeCardVertical extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Text(
-                                    scored.toString(),
+                                    widget.scored.toString(),
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
@@ -130,7 +150,7 @@ class AnimeCardVertical extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          title,
+                          widget.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -145,7 +165,7 @@ class AnimeCardVertical extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: searchType == SearchType.anime
+                                  color: widget.searchType == SearchType.anime
                                       ? MyColors.animeTypeColor
                                       : MyColors.mangaTypeColor,
                                 ),
@@ -156,7 +176,7 @@ class AnimeCardVertical extends StatelessWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    type,
+                                    widget.type,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
@@ -167,16 +187,16 @@ class AnimeCardVertical extends StatelessWidget {
                             ),
                             const SizedBox(width: 4),
                             Text(
-                              '${episodes ?? '??'} ${searchType == SearchType.anime ? 'ep' : 'chp'}, ${aired ?? ''}',
+                              '${widget.episodes ?? '??'} ${widget.searchType == SearchType.anime ? 'ep' : 'chp'}, ${widget.aired ?? ''}',
                             ),
                           ],
                         ),
                         const Spacer(),
-                        if (scoredBy != null)
+                        if (widget.scoredBy != null)
                           Row(
                             children: [
                               Text(
-                                formatter.format(scoredBy),
+                                formatter.format(widget.scoredBy),
                               ),
                               const SizedBox(width: 4),
                               const Icon(
@@ -190,35 +210,49 @@ class AnimeCardVertical extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  IconButton(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      /// Show bottom sheet
-                      showEditListBottomSheet(
-                        context: context,
-                        type: searchType,
-                        mylistModel: MylistModel(
-                          malId: malId,
-                          animeOrManga: searchType.name,
-                          imageUrl: imageUrl ?? '',
-                          title: title,
-                          type: type,
-                          userStatus: null,
-                          airingStart: aired,
-                          episodesOrChapters: episodes,
-                          userProgress: null,
-                          userScore: null,
-                          userStartDate: null,
-                          userEndDate: null,
-                          addedTime: null,
+                  ValueListenableBuilder(
+                    valueListenable: mylistValueNotifier,
+                    builder: (context, value, _) {
+                      return IconButton(
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onPressed: () async {
+                          /// Show bottom sheet
+                          await showEditListBottomSheet(
+                            context: context,
+                            type: widget.searchType,
+                            mylistModel: MylistModel(
+                              malId: widget.malId,
+                              animeOrManga: widget.searchType.name,
+                              imageUrl: widget.imageUrl ?? '',
+                              title: widget.title,
+                              type: widget.type,
+                              userStatus: null,
+                              airingStart: widget.aired,
+                              episodesOrChapters: widget.episodes,
+                              userProgress: null,
+                              userScore: null,
+                              userStartDate: null,
+                              userEndDate: null,
+                              addedTime: null,
+                            ),
+                          );
+                          initData();
+                        },
+                        icon: Icon(
+                          Icons.add_box_outlined,
+                          color: value.any(
+                                  (element) => element.malId == widget.malId)
+                              ? StatusColors.statusColors[StatusAnime.statusList
+                                  .indexOf(value
+                                      .firstWhere((element) =>
+                                          element.malId == widget.malId)
+                                      .userStatus!)]
+                              : Colors.white,
+                          size: 32,
                         ),
                       );
                     },
-                    icon: const Icon(
-                      Icons.add_box_outlined,
-                      size: 32,
-                    ),
                   ),
                 ],
               ),

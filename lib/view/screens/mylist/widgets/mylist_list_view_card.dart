@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_anime_manga_app/view/widgets/show_edit_list_bottom_sheet.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants/edit_list_bottom_sheet/status_anime.dart';
@@ -12,8 +13,7 @@ import '../../../../constants/enum/search_type.dart';
 import '../../../../data/models/mylist/mylist_model.dart';
 import '../../../../features/state/bloc/mylist_screen/anime_list/mylist_anime_bloc.dart';
 import '../../../../features/state/bloc/mylist_screen/manga_list/mylist_manga_bloc.dart';
-import '../../../info/info_screen.dart';
-import '../../../widgets/edit_list_bottom_sheet.dart';
+import '../../info/info_screen.dart';
 import 'mylist_image.dart';
 
 class MylistListViewCard extends StatefulWidget {
@@ -104,6 +104,10 @@ class _MylistListViewCardState extends State<MylistListViewCard> {
                             children: [
                               Text(
                                 widget.data.userScore.toString(),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                               const Icon(
                                 Icons.star,

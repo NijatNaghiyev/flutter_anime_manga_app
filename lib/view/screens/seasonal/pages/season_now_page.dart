@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_anime_manga_app/view/screens/search/widgets/search_initial.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../features/state/bloc/seasonal/season_now/season_now_bloc.dart';
+import '../../../../constants/enum/parameter_search_type.dart';
 import '../../../widgets/center_loading_indicator.dart';
 import '../widgets/seasonal_grid_view.dart';
 
@@ -56,8 +58,17 @@ class _SeasonNowPageState extends State<SeasonNowPage> {
         /// Error
         if (state is SeasonNowError) {
           closeDialog();
-          return const Center(
-            child: Text('Error'),
+          return Center(
+            child: ErrorRetry(
+              state: state,
+              onRetry: () {
+                context.read<SeasonNowBloc>().add(
+                      const SeasonNowInitialEvent(
+                        type: ParameterSearchTypeAnime.Default,
+                      ),
+                    );
+              },
+            ),
           );
         }
 

@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_anime_manga_app/constants/theme/colors.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'my_app.dart';
@@ -9,13 +10,16 @@ import 'my_app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: MyColors.primary,
-      statusBarBrightness: Brightness.dark,
-    ),
-  );
+  /// SharedPreferences
+  pref = await SharedPreferences.getInstance();
 
+  /// Native splash screen
+  FlutterNativeSplash.preserve(
+      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  await Future.delayed(const Duration(seconds: 1));
+  FlutterNativeSplash.remove();
+
+  /// Set Device Orientation
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 

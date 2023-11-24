@@ -3,14 +3,17 @@ import 'package:flutter_anime_manga_app/data/services/info/anime_full.dart';
 import 'package:flutter_anime_manga_app/data/services/search/anime_search.dart';
 import 'package:flutter_anime_manga_app/features/state/bloc/info/info_bloc/info_bloc.dart';
 import 'package:flutter_anime_manga_app/features/state/bloc/seasonal/season_now/season_now_bloc.dart';
-import 'package:flutter_anime_manga_app/view/info/widgets/info_characters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'constants/enum/parameter_search_type.dart';
 import 'constants/theme/my_theme.dart';
-import 'data/services/info/character.dart';
 import 'data/services/info/manga_full.dart';
+import 'data/services/recommends/recent_recommends_anime.dart';
+import 'data/services/recommends/recent_recommends_manga.dart';
+import 'data/services/reviews/recent_reviews_anime.dart';
+import 'data/services/reviews/recent_reviews_manga.dart';
 import 'data/services/search/characters_search.dart';
 import 'data/services/search/manga_search.dart';
 import 'data/services/search/people_search.dart';
@@ -24,6 +27,7 @@ import 'data/services/top_data/top_characters_service.dart';
 import 'data/services/top_data/top_manga_service.dart';
 import 'data/services/top_data/top_people_service.dart';
 import 'features/router/app_router.dart';
+import 'features/state/bloc/home/home_screen/home_bloc.dart';
 import 'features/state/bloc/mylist_screen/anime_list/mylist_anime_bloc.dart';
 import 'features/state/bloc/mylist_screen/manga_list/mylist_manga_bloc.dart';
 import 'features/state/bloc/search-screen/search/data_search_bloc.dart';
@@ -35,7 +39,13 @@ import 'features/state/bloc/seasonal/season_archive/season_archive_bloc.dart';
 import 'features/state/bloc/seasonal/season_last/season_last_bloc.dart';
 import 'features/state/bloc/seasonal/season_upcoming/season_upcoming_bloc.dart';
 import 'features/state/cubit/core/bottom_nav_bar_cubit.dart';
+import 'features/state/cubit/drawer/drawer_image_cubit.dart';
 import 'features/state/cubit/search_lists/search_lists_cubit.dart';
+
+/// Selected Theme
+late SharedPreferences pref;
+ValueNotifier<int> selectedThemeValueNotifier =
+    ValueNotifier(pref.getInt('theme') ?? 1);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -96,7 +106,25 @@ class MyApp extends StatelessWidget {
         RepositoryProvider<TopPeopleService>(
           create: (_) => TopPeopleService(),
         ),
+
+        /// Recent Reviews
+        RepositoryProvider<RecentReviewsAnimeService>(
+          create: (_) => RecentReviewsAnimeService(),
+        ),
+        RepositoryProvider<RecentReviewsMangaService>(
+          create: (_) => RecentReviewsMangaService(),
+        ),
+
+        /// Recent Recommends
+        RepositoryProvider<RecentRecommendsAnimeService>(
+          create: (_) => RecentRecommendsAnimeService(),
+        ),
+        RepositoryProvider<RecentRecommendsMangaService>(
+          create: (_) => RecentRecommendsMangaService(),
+        ),
       ],
+
+      /// Providers
       child: MultiBlocProvider(
         providers: [
           /// Search
@@ -117,6 +145,19 @@ class MyApp extends StatelessWidget {
               animeFullService: context.read<AnimeFullService>(),
               mangaFullService: context.read<MangaFullService>(),
             ),
+          ),
+
+          /// Home
+          BlocProvider<HomeBloc>(
+            lazy: false,
+            create: (context) => HomeBloc(
+              recentReviewsAnimeService:
+                  context.read<RecentReviewsAnimeService>(),
+              recentReviewsMangaService:
+                  context.read<RecentReviewsMangaService>(),
+            )..add(
+                HomeEventInitial(),
+              ),
           ),
 
           /// Seasonal
@@ -207,16 +248,34 @@ class MyApp extends StatelessWidget {
           BlocProvider<BottomNavBarCubit>(
             create: (context) => BottomNavBarCubit(),
           ),
+          BlocProvider<DrawerImageCubit>(
+            lazy: false,
+            create: (context) {
+              return DrawerImageCubit()..profilePhotoUrl();
+            },
+          ),
         ],
         child: OKToast(
-          child: MaterialApp.router(
-            routerConfig: AppRouter.router,
-            title: 'FIMDb',
-            debugShowCheckedModeBanner: false,
-            theme: myThemeLight,
-            darkTheme: myThemeDark,
-            themeMode: ThemeMode.dark,
-          ),
+          child: ValueListenableBuilder(
+              valueListenable: selectedThemeValueNotifier,
+              builder: (context, theme, _) {
+                var selectedTheme = ThemeMode.dark;
+                if (theme == 0) {
+                  selectedTheme = ThemeMode.light;
+                } else if (theme == 1) {
+                  selectedTheme = ThemeMode.dark;
+                } else if (theme == 2) {
+                  selectedTheme = ThemeMode.system;
+                }
+                return MaterialApp.router(
+                  routerConfig: AppRouter.router,
+                  title: 'FIMDb',
+                  debugShowCheckedModeBanner: false,
+                  theme: myThemeLight,
+                  darkTheme: myThemeDark,
+                  themeMode: selectedTheme,
+                );
+              }),
         ),
       ),
     );

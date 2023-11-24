@@ -26,23 +26,40 @@ class ApiKey {
       'https://api.jikan.moe/v4/anime/$malId/themes';
   static String apiBaseUrlInfoAnimeVideos({required int malId}) =>
       'https://api.jikan.moe/v4/anime/$malId/videos';
+
   static String apiBaseUrlInfoAnimeReviews({required int malId}) =>
       'https://api.jikan.moe/v4/anime/$malId/reviews';
+
   static String apiBaseUrlInfoAnimeRecommendations({required int malId}) =>
       'https://api.jikan.moe/v4/anime/$malId/recommendations';
+
   static String apiBaseUrlInfoAnimeNews({required int malId}) =>
       'https://api.jikan.moe/v4/anime/$malId/news';
+
   static String apiBaseUrlInfoAnimeStatistics({required int malId}) =>
       'https://api.jikan.moe/v4/anime/$malId/statistics';
 
+  static const String apiBaseUrlRecentReviewsAnime =
+      'https://api.jikan.moe/v4/reviews/anime';
+  static const String apiBaseUrlRecentReviewsManga =
+      'https://api.jikan.moe/v4/reviews/manga';
+  static const String apiBaseUrlRecentRecommendsAnime =
+      'https://api.jikan.moe/v4/recommendations/anime';
+  static const String apiBaseUrlRecentRecommendsManga =
+      'https://api.jikan.moe/v4/recommendations/manga';
+
   static String apiBaseUrlInfoMangaCharacter({required int malId}) =>
       'https://api.jikan.moe/v4/manga/$malId/characters';
+
   static String apiBaseUrlInfoMangaReviews({required int malId}) =>
       'https://api.jikan.moe/v4/manga/$malId/reviews';
+
   static String apiBaseUrlInfoMangaRecommendations({required int malId}) =>
       'https://api.jikan.moe/v4/manga/$malId/recommendations';
+
   static String apiBaseUrlInfoMangaNews({required int malId}) =>
       'https://api.jikan.moe/v4/manga/$malId/news';
+
   static String apiBaseUrlInfoMangaStatistics({required int malId}) =>
       'https://api.jikan.moe/v4/manga/$malId/statistics';
 

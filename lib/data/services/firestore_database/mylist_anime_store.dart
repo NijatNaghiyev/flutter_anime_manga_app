@@ -38,8 +38,11 @@ class MylistAnimeStore {
     final firestore = FirebaseFirestore.instance;
     final authCredential = FirebaseAuth.instance.currentUser;
 
+    if (authCredential == null) {
+      return [];
+    }
     final mylistRef = await firestore
-        .collection('${authCredential!.email}')
+        .collection('${authCredential.email}')
         .doc('mylistAnime')
         .get();
     if (!mylistRef.exists) {

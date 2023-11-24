@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
-class BottomSheetStatusTitleRow extends StatelessWidget {
-  const BottomSheetStatusTitleRow({
+class BottomSheetTitleRow extends StatelessWidget {
+  const BottomSheetTitleRow({
     super.key,
+    required this.title,
+    required this.value,
   });
+
+  final String title;
+  final String value;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class BottomSheetStatusTitleRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Status',
+            title,
             style: TextStyle(
               color: Theme.of(context)
                   .textTheme
@@ -25,7 +30,7 @@ class BottomSheetStatusTitleRow extends StatelessWidget {
             ),
           ),
           Text(
-            'Finished',
+            value,
             style: TextStyle(
               color: Theme.of(context)
                   .textTheme

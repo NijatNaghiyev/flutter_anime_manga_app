@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_anime_manga_app/data/models/info/favorite_model.dart';
 
-import '../../../view/info/widgets/favorite_icon_value_listenable.dart';
+import '../../../view/screens/info/widgets/favorite_icon_value_listenable.dart';
 
 class FavoriteMangaFirebaseService {
   static Future<void> addOrRemoveFavorite(

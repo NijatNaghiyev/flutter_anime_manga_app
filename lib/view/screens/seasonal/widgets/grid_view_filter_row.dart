@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_anime_manga_app/constants/theme/colors.dart';
 import 'package:flutter_anime_manga_app/data/models/seasonal/seasonal_model.dart';
 
 class GridViewFilterRow extends StatefulWidget {
@@ -38,7 +39,17 @@ class _GridViewFilterRowState extends State<GridViewFilterRow> {
       height: 50,
       width: double.infinity,
       child: Row(
-        children: [Text(seasonDateNowSeasonalScreen!)],
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            seasonDateNowSeasonalScreen!,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: MyColors.primary,
+            ),
+          ),
+        ],
       ),
     );
   }

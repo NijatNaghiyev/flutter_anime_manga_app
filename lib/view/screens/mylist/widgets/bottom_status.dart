@@ -51,7 +51,6 @@ class BottomStatus extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: animeOrManga,
       builder: (context, type, _) {
-        print(type);
         return TabBar(
           indicatorColor: MyColors.primary,
           labelColor: Theme.of(context).textTheme.bodySmall!.color,

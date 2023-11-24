@@ -1,7 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_manga_app/features/router/routers.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../../constants/enum/parameter_search_type.dart';
+import '../../../features/state/bloc/home/home_screen/home_bloc.dart';
+import '../../../features/state/bloc/mylist_screen/anime_list/mylist_anime_bloc.dart';
+import '../../../features/state/bloc/mylist_screen/manga_list/mylist_manga_bloc.dart';
+import '../../../features/state/bloc/seasonal/season_now/season_now_bloc.dart';
 
 final class AuthService {
   AuthService._();
@@ -51,6 +58,14 @@ final class AuthService {
       );
 
       if (userCredential.additionalUserInfo != null) {
+        context.read<HomeBloc>().add(HomeEventInitial());
+
+        context.read<MylistAnimeBloc>().add(const MylistAnimeLoadEvent());
+        context.read<MylistMangaBloc>().add(const MylistMangaLoadEvent());
+        context.read<SeasonNowBloc>().add(const SeasonNowInitialEvent(
+              type: ParameterSearchTypeAnime.Default,
+            ));
+
         context.goNamed(MyRouters.home.name);
       }
     } on FirebaseAuthException catch (e) {

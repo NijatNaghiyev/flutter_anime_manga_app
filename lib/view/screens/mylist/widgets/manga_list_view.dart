@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constants/enum/search_type.dart';
-import '../../../../data/models/mylist/mylist_model.dart';
 import '../../../../features/state/bloc/mylist_screen/manga_list/mylist_manga_bloc.dart';
 import '../../../widgets/center_loading_indicator.dart';
 import 'bottom_status.dart';
@@ -32,8 +31,9 @@ class _MangaListViewState extends State<MangaListView>
 
   @override
   void initState() {
-    super.initState();
     tabController = TabController(length: 6, vsync: this);
+
+    super.initState();
   }
 
   @override

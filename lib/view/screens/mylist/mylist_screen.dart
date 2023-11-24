@@ -4,6 +4,8 @@ import 'package:flutter_anime_manga_app/view/screens/mylist/widgets/anime_list_v
 import 'package:flutter_anime_manga_app/view/screens/mylist/widgets/manga_list_view.dart';
 import 'package:flutter_anime_manga_app/view/screens/mylist/widgets/mylist_app_bar_switch.dart';
 
+import '../drawer/widgets/build_open_drawer.dart';
+
 class MylistScreen extends StatefulWidget {
   const MylistScreen({super.key});
 
@@ -17,10 +19,15 @@ class _MylistScreenState extends State<MylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
       appBar: AppBar(
+        leading: buildOpenDrawer(context),
         backgroundColor: MyColors.primary,
-        title: const Text('Mylist'),
+        title: const Text(
+          'Mylist',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: [
           MylistAppBarSwitch(isSwitched: _isSwitched),
         ],
@@ -30,7 +37,7 @@ class _MylistScreenState extends State<MylistScreen> {
         builder: (context, value, _) {
           return IndexedStack(
             index: value ? 1 : 0,
-            children: [
+            children: const [
               AnimeListView(),
               MangaListView(),
             ],

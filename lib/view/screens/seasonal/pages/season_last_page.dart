@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../constants/enum/parameter_search_type.dart';
 import '../../../../features/state/bloc/seasonal/season_last/season_last_bloc.dart';
 import '../../../widgets/center_loading_indicator.dart';
+import '../../search/widgets/search_initial.dart';
 import '../widgets/seasonal_grid_view.dart';
 
 class SeasonLastPage extends StatefulWidget {
@@ -56,8 +58,17 @@ class _SeasonLastPageState extends State<SeasonLastPage> {
         /// Error
         if (state is SeasonLastError) {
           closeDialog();
-          return const Center(
-            child: Text('Error'),
+          return Center(
+            child: ErrorRetry(
+              state: state,
+              onRetry: () {
+                context.read<SeasonLastBloc>().add(
+                      const SeasonLastInitialEvent(
+                        type: ParameterSearchTypeAnime.Default,
+                      ),
+                    );
+              },
+            ),
           );
         }
 

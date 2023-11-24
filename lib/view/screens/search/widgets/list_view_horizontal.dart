@@ -2,7 +2,6 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_anime_manga_app/features/state/cubit/core/bottom_nav_bar_cubit.dart';
-import 'package:flutter_anime_manga_app/view/info/info_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../constants/enum/search_type.dart';
 import '../../../../constants/theme/colors.dart';
 import '../../../../features/router/routers.dart';
-import '../../../../features/state/bloc/info/info_bloc/info_bloc.dart';
+import '../../info/info_screen.dart';
 
 /// Go to Info Screen
 void goToInfoScreen(BuildContext context, int malId, SearchType type) {
@@ -38,7 +37,7 @@ class ListViewHorizontal extends StatelessWidget {
     final formatter =
         NumberFormat.compact(locale: "en_US", explicitSign: false);
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.3,
+      height: 230,
       child: ListView.builder(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
@@ -112,8 +111,10 @@ class ListViewHorizontal extends StatelessWidget {
                     bottom: 0,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 3),
-                      height: MediaQuery.sizeOf(context).height * 0.075,
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      height: 70,
                       width: MediaQuery.sizeOf(context).width * 0.4,
                       decoration: BoxDecoration(
                         color: Colors.black.withOpacity(0.5),
@@ -135,35 +136,37 @@ class ListViewHorizontal extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                formatter.format(topDataIndex.scoredBy),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Text(
+                                  formatter.format(topDataIndex.scoredBy),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 5),
-                              const Icon(Icons.people_alt_sharp, size: 11),
-                              const Spacer(),
-                              Text(
-                                topDataIndex.score.toString(),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontSize: 11,
+                                const SizedBox(width: 5),
+                                const Icon(Icons.people_alt_sharp, size: 11),
+                                const Spacer(),
+                                Text(
+                                  topDataIndex.score.toString(),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                  ),
                                 ),
-                              ),
-                              const Icon(
-                                Icons.star,
-                                size: 11,
-                              ),
-                              const SizedBox(width: 5),
-                            ],
+                                const Icon(
+                                  Icons.star,
+                                  size: 11,
+                                ),
+                                const SizedBox(width: 5),
+                              ],
+                            ),
                           ),
                         ],
                       ),

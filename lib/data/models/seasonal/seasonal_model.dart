@@ -53,7 +53,7 @@ class SeasonalData {
   final String? aired;
   final num? score;
   final int members;
-  final String type;
+  final String? type;
   final List<String> genres;
   final bool airing;
   final String? season;

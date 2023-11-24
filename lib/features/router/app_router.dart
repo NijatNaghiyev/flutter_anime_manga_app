@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_anime_manga_app/constants/enum/search_type.dart';
 import 'package:flutter_anime_manga_app/features/router/routers.dart';
-import 'package:flutter_anime_manga_app/view/info/info_screen.dart';
 import 'package:flutter_anime_manga_app/view/screens/login/login_screen.dart';
 import 'package:flutter_anime_manga_app/view/screens/search/widgets/top_list/top_manga_see_all.dart';
 import 'package:flutter_anime_manga_app/view/screens/search/widgets/top_list/top_people_see_all.dart';
@@ -12,13 +11,13 @@ import 'package:go_router/go_router.dart';
 import '../../data/models/top_data/top_anime_model.dart';
 import '../../view/screens/core/core_screen.dart';
 import '../../view/screens/home/home_screen.dart';
+import '../../view/screens/info/info_screen.dart';
 import '../../view/screens/mylist/mylist_screen.dart';
 import '../../view/screens/search/search_screen.dart';
 import '../../view/screens/search/widgets/top_list/top_anime_see_all.dart';
 import '../../view/screens/search/widgets/top_list/top_characters_see_all.dart';
 import '../../view/screens/seasonal/seasonal_screen.dart';
 import '../../view/screens/started/started_screen.dart';
-import '../../view/test_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKeyHome = GlobalKey<NavigatorState>(debugLabel: 'home');
@@ -34,7 +33,7 @@ class AppRouter {
 
   static GoRouter router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/started',
+    initialLocation: '/',
     redirect: (context, state) {
       /// If the user is logged in, redirect to the home page
       if (FirebaseAuth.instance.currentUser != null &&
@@ -47,13 +46,29 @@ class AppRouter {
       /// Started
       GoRoute(
         name: MyRouters.started.name,
-        path: '/started',
+        path: '/',
         builder: (context, state) => const StartedScreen(),
         routes: [
           GoRoute(
             name: MyRouters.login.name,
             path: 'login',
-            builder: (context, state) => const LoginScreen(),
+            pageBuilder: (context, state) => CustomTransitionPage(
+              transitionDuration: const Duration(milliseconds: 500),
+              reverseTransitionDuration: const Duration(milliseconds: 400),
+              key: state.pageKey,
+              child: const LoginScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0);
+                const end = Offset.zero;
+                final tween = Tween(begin: begin, end: end);
+                final offsetAnimation = animation.drive(tween);
+                return SlideTransition(
+                  position: offsetAnimation,
+                  child: child,
+                );
+              },
+            ),
           ),
           GoRoute(
             name: MyRouters.signup.name,
@@ -93,29 +108,6 @@ class AppRouter {
                 path: '/home',
                 builder: (context, state) => const HomeScreen(),
               ),
-              GoRoute(
-                path: '/test',
-                // builder: (context, state) => const TestScreen(),
-                pageBuilder: (context, state) => CustomTransitionPage(
-                  transitionDuration: const Duration(seconds: 1),
-                  key: state.pageKey,
-                  child: const TestScreen(),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(5, 0),
-                      end: Offset.zero,
-                    ).animate(
-                      CurvedAnimation(
-                        parent: animation,
-                        curve: Curves.easeInOutSine,
-                      ),
-                    ),
-                    child: child,
-                  ),
-                ),
-              )
             ],
           ),
 

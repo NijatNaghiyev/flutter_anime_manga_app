@@ -28,6 +28,8 @@ class MyListListViewVertical extends StatefulWidget {
 
 class _MyListListViewVerticalState extends State<MyListListViewVertical>
     with AutomaticKeepAliveClientMixin {
+  ValueNotifier<int> popupMenuValueNotifier = ValueNotifier(0);
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -38,7 +40,7 @@ class _MyListListViewVerticalState extends State<MyListListViewVertical>
         : StatusManga
             .statusList[widget.indexTab == 0 ? 0 : widget.indexTab - 1];
 
-    final List<MylistModel> myList = widget.indexTab == 0
+    List<MylistModel> myList = widget.indexTab == 0
         ? widget.animeMangaList
         : widget.animeMangaList
             .where(
@@ -65,62 +67,133 @@ class _MyListListViewVerticalState extends State<MyListListViewVertical>
               ),
             ),
             const Spacer(),
-            PopupMenuButton<int>(
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuEntry<int>>[
-                  PopupMenuItem<int>(
-                    value: 0,
-                    child: Text(
-                      'Sort by Title',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodySmall!.color,
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 1,
-                    child: Text(
-                      'Sort by Score',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodySmall!.color,
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 2,
-                    child: Text(
-                      'Sort by Progress',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodySmall!.color,
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 3,
-                    child: Text(
-                      'Sort by Start Date',
-                      style: TextStyle(
-                        color: Theme.of(context).textTheme.bodySmall!.color,
-                      ),
-                    ),
-                  ),
-                  PopupMenuItem<int>(
-                    value: 4,
-                    child: Row(
-                      children: [
-                        Text(
-                          'Sort by End Date',
-                          style: TextStyle(
-                            color: Theme.of(context).textTheme.bodySmall!.color,
+            ValueListenableBuilder(
+                valueListenable: popupMenuValueNotifier,
+                builder: (context, value, _) {
+                  return PopupMenuButton<int>(
+                    itemBuilder: (BuildContext context) {
+                      return <PopupMenuEntry<int>>[
+                        PopupMenuItem<int>(
+                          onTap: () {
+                            popupMenuValueNotifier.value = 0;
+                          },
+                          value: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Last Updated',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .color,
+                                ),
+                              ),
+                              value == 0
+                                  ? const Icon(
+                                      Icons.circle,
+                                      size: 16,
+                                    )
+                                  : const Icon(
+                                      Icons.circle_outlined,
+                                      size: 16,
+                                    ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ];
-              },
-              child: const Icon(Icons.filter_list),
-            ),
+                        PopupMenuItem<int>(
+                          onTap: () {
+                            popupMenuValueNotifier.value = 1;
+                          },
+                          value: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Title',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .color,
+                                ),
+                              ),
+                              value == 1
+                                  ? const Icon(
+                                      Icons.circle,
+                                      size: 16,
+                                    )
+                                  : const Icon(
+                                      Icons.circle_outlined,
+                                      size: 16,
+                                    ),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          onTap: () {
+                            popupMenuValueNotifier.value = 2;
+                          },
+                          value: 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Score',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .color,
+                                ),
+                              ),
+                              value == 2
+                                  ? const Icon(
+                                      Icons.circle,
+                                      size: 16,
+                                    )
+                                  : const Icon(
+                                      Icons.circle_outlined,
+                                      size: 16,
+                                    ),
+                            ],
+                          ),
+                        ),
+                        PopupMenuItem<int>(
+                          onTap: () {
+                            popupMenuValueNotifier.value = 3;
+                          },
+                          value: 3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Start Date',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .color,
+                                ),
+                              ),
+                              value == 3
+                                  ? const Icon(
+                                      Icons.circle,
+                                      size: 16,
+                                    )
+                                  : const Icon(
+                                      Icons.circle_outlined,
+                                      size: 16,
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ];
+                    },
+                    child: const Icon(Icons.filter_list),
+                  );
+                }),
             const SizedBox(width: 8),
           ],
         ),
@@ -140,18 +213,43 @@ class _MyListListViewVerticalState extends State<MyListListViewVertical>
               }
               return Future<void>.value();
             },
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: myList.length,
-              itemBuilder: (context, index) {
-                final data = myList[index];
-                return MylistListViewCard(
-                  data: data,
-                  type: widget.type,
-                );
-              },
-            ),
+            child: ValueListenableBuilder(
+                valueListenable: popupMenuValueNotifier,
+                builder: (context, value, _) {
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: myList.length,
+                    itemBuilder: (context, index) {
+                      if (value == 0) {
+                      } else if (value == 1) {
+                        myList.sort((a, b) => a.title.compareTo(b.title));
+                      } else if (value == 2) {
+                        final scoredList = myList
+                            .where((element) => element.userScore != null)
+                            .toList();
+
+                        scoredList.sort(
+                            (a, b) => b.userScore!.compareTo(a.userScore!));
+
+                        final unScoredList = myList
+                            .where((element) => element.userScore == null)
+                            .toList();
+
+                        myList = [...scoredList, ...unScoredList];
+                      } else if (value == 3) {
+                        myList.sort(
+                            (a, b) => b.airingStart!.compareTo(a.airingStart!));
+                      }
+
+                      final data = myList[index];
+                      return MylistListViewCard(
+                        data: data,
+                        type: widget.type,
+                      );
+                    },
+                  );
+                }),
           ),
         ),
       ],

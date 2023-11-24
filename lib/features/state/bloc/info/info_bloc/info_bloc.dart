@@ -50,14 +50,28 @@ class InfoBloc extends Bloc<InfoEvent, InfoState> {
         ...getImages,
       ]);
 
-      await Future.delayed(const Duration(milliseconds: 1000));
+      await Future.delayed(const Duration(milliseconds: 500));
 
       /// Anime Staff
-      final animeStaff =
+      var animeStaff =
           await AnimeStaffService.getAnimeStaff(malId: event.malId);
 
+      if (animeStaff.isEmpty) {
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        animeStaff = await AnimeStaffService.getAnimeStaff(malId: event.malId);
+      }
+
+      await Future.delayed(const Duration(milliseconds: 500));
+
       /// Themes
-      final themes = await ThemesService.getThemes(malId: event.malId);
+      var themes = await ThemesService.getThemes(malId: event.malId);
+
+      if (themes == null) {
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        themes = await ThemesService.getThemes(malId: event.malId);
+      }
 
       emit(
         InfoAnimeLoadedState(

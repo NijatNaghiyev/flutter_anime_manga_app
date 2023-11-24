@@ -31,14 +31,15 @@ class _AnimeListViewState extends State<AnimeListView>
 
   @override
   void initState() {
-    super.initState();
     tabController = TabController(length: 6, vsync: this, initialIndex: 0);
+
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     tabController.dispose();
+    super.dispose();
   }
 
   @override

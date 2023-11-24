@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_anime_manga_app/constants/theme/colors.dart';
 import 'package:flutter_anime_manga_app/data/models/mylist/mylist_model.dart';
+import 'package:flutter_anime_manga_app/view/widgets/show_edit_list_bottom_sheet.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../constants/edit_list_bottom_sheet/status_anime.dart';
@@ -10,8 +11,7 @@ import '../../../../constants/edit_list_bottom_sheet/status_colors.dart';
 import '../../../../constants/enum/search_type.dart';
 import '../../../../data/models/seasonal/seasonal_model.dart';
 import '../../../../data/services/firestore_database/mylist_anime_store.dart';
-import '../../../info/info_screen.dart';
-import '../../../widgets/edit_list_bottom_sheet.dart';
+import '../../info/info_screen.dart';
 
 class SeasonalGridViewCard extends StatefulWidget {
   const SeasonalGridViewCard(
@@ -64,7 +64,7 @@ class _SeasonalGridViewCardState extends State<SeasonalGridViewCard> {
         child: Column(
           children: [
             Expanded(
-              flex: 7,
+              flex: 6,
               child: SizedBox(
                 width: double.infinity,
                 child: Stack(
@@ -73,7 +73,7 @@ class _SeasonalGridViewCardState extends State<SeasonalGridViewCard> {
                       widget.data.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
-                      height: MediaQuery.sizeOf(context).height * 0.4,
+                      height: 220,
                     ),
                     Positioned(
                       bottom: 2,
@@ -151,7 +151,7 @@ class _SeasonalGridViewCardState extends State<SeasonalGridViewCard> {
                                         animeOrManga: SearchType.anime.name,
                                         imageUrl: widget.data.imageUrl,
                                         title: widget.data.title,
-                                        type: widget.data.type,
+                                        type: widget.data.type ?? 'N/A',
                                         userStatus: null,
                                         airingStart: widget.data.aired,
                                         episodesOrChapters:

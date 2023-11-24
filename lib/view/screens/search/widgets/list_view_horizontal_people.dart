@@ -16,7 +16,7 @@ class ListViewHorizontalPeople extends StatelessWidget {
     final formatter =
         NumberFormat.compact(locale: "en_US", explicitSign: false);
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.3,
+      height: 230,
       child: ListView.builder(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
@@ -75,7 +75,7 @@ class ListViewHorizontalPeople extends StatelessWidget {
                   child: Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    height: MediaQuery.sizeOf(context).height * 0.07,
+                    height: 50,
                     width: MediaQuery.sizeOf(context).width * 0.4,
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.5),

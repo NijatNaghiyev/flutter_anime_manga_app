@@ -15,6 +15,15 @@ ThemeData myThemeDark = ThemeData(
   splashColor: Colors.transparent,
   useMaterial3: true,
 
+  /// AppBarTheme
+  appBarTheme: const AppBarTheme(
+    titleTextStyle: TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+
   /// ElevatedButtonThemeData
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
