@@ -119,11 +119,12 @@ class _StartedScreenState extends State<StartedScreen>
                 );
 
                 await AuthGoogleService.signInWithGoogle(context);
+                mounted ? Navigator.pop(context) : null;
               },
               child: Container(
                 clipBehavior: Clip.hardEdge,
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(45),
                 ),

@@ -1,7 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -9,9 +12,9 @@ import '../../../../constants/theme/colors.dart';
 import '../../../../features/state/cubit/drawer/drawer_image_cubit.dart';
 
 /// Change photo
-void changePhoto(BuildContext context) {
+Future<void> changePhoto(BuildContext context) async {
   final imagePicker = ImagePicker();
-  showGeneralDialog(
+  await showGeneralDialog(
     barrierLabel: 'Change Photo',
     barrierDismissible: true,
     context: context,
@@ -34,11 +37,14 @@ void changePhoto(BuildContext context) {
                   source: ImageSource.camera,
                   imageQuality: 50,
                 );
+
                 if (pickedImage == null) {
                   return;
                 }
 
                 final imageFile = File(pickedImage.path);
+
+                log(imageFile.path);
 
                 final croppedFile = await ImageCropper().cropImage(
                   sourcePath: imageFile.path,
@@ -60,10 +66,18 @@ void changePhoto(BuildContext context) {
 
                 final File file = File(croppedFile!.path);
 
-                /// Change photo
-                context.read<DrawerImageCubit>().changeProfilePhoto(file);
+                if (!context.mounted) {
+                  throw Exception('Context is not mounted');
+                }
 
                 Navigator.of(context).pop();
+
+                /// Change photo
+                await context.read<DrawerImageCubit>().changeProfilePhoto(file);
+
+                /// Delete image file
+                imageFile.deleteSync();
+                file.deleteSync();
               },
               icon: const Icon(
                 Icons.camera_alt,
@@ -113,10 +127,18 @@ void changePhoto(BuildContext context) {
 
                 final File file = File(croppedFile.path);
 
-                /// Change photo
-                context.read<DrawerImageCubit>().changeProfilePhoto(file);
+                if (!context.mounted) {
+                  throw Exception('Context is not mounted');
+                }
 
                 Navigator.of(context).pop();
+
+                /// Change photo
+                await context.read<DrawerImageCubit>().changeProfilePhoto(file);
+
+                /// Delete image file
+                imageFile.deleteSync();
+                file.deleteSync();
               },
               icon: const Icon(
                 Icons.photo_library,
@@ -148,4 +170,11 @@ void changePhoto(BuildContext context) {
       ),
     ),
   );
+
+  final cacheManager = DefaultCacheManager();
+  // await cacheManager.emptyCache();
+  // cacheManager.store.emptyMemoryCache();
+  log(File(cacheManager.store.toString()).toString());
+  log(cacheManager.store.lastCleanupRun.toString());
+  log(FirebaseAuth.instance.currentUser.toString());
 }

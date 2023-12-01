@@ -29,8 +29,29 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                 Radius.circular(10),
               ),
             ),
-            child: const Center(
-              child: Icon(Icons.person, size: 100, color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  padding: const EdgeInsets.all(8),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.black54),
+                    shape: MaterialStateProperty.all(
+                      const CircleBorder(),
+                    ),
+                  ),
+                  onPressed: () async {
+                    /// Change Photo
+                    changePhoto(context);
+                  },
+                  icon: const Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
             ),
           );
         }
@@ -61,7 +82,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
                     const CircleBorder(),
                   ),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   /// Change Photo
                   changePhoto(context);
                 },

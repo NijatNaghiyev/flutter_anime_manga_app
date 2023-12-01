@@ -61,6 +61,7 @@ class ProfileFavoriteCard extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -71,6 +72,7 @@ class ProfileFavoriteCard extends StatelessWidget {
                         child: Text(
                           value.airingStart,
                           style: const TextStyle(
+                            color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),

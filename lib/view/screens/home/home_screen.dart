@@ -125,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 !state ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             secondChild: const SizedBox.shrink(),
             firstChild: FloatingActionButton(
+              backgroundColor: MyColors.primary,
               elevation: 0,
               shape: const CircleBorder(),
               onPressed: () async {

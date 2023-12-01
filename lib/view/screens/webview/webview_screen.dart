@@ -85,8 +85,16 @@ class _WebviewScreenState extends State<WebviewScreen> {
     getScroll();
     return Scaffold(
       appBar: AppBar(
+        leading: const BackButton(
+          color: Colors.white,
+        ),
         backgroundColor: MyColors.primary,
-        title: Text(widget.url),
+        title: Text(
+          widget.url,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -94,7 +102,10 @@ class _WebviewScreenState extends State<WebviewScreen> {
                 Uri.parse(widget.url),
               );
             },
-            icon: const Icon(Icons.ios_share),
+            icon: const Icon(
+              Icons.ios_share,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -109,19 +120,28 @@ class _WebviewScreenState extends State<WebviewScreen> {
               onPressed: () async {
                 goBack();
               },
-              icon: const Icon(Icons.arrow_back_ios_new),
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+              ),
             ),
             IconButton(
               onPressed: () {
                 _controller.reload();
               },
-              icon: const Icon(Icons.refresh),
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ),
             ),
             IconButton(
               onPressed: () async {
                 goForward();
               },
-              icon: const Icon(Icons.arrow_forward_ios),
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
