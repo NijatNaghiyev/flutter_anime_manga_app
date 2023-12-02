@@ -1,10 +1,10 @@
 # flutter_anime_manga_app
 
-## Overview
+### Overview
 
 This is a Flutter app that uses the Jikan API to display anime and manga information.
 
-## Features
+# Features
 
 - **Explore**: Browse a vast collection of anime and manga titles effortlessly.
 - **Search**: Quickly find specific titles or explore by genre with the intuitive search
@@ -12,9 +12,9 @@ This is a Flutter app that uses the Jikan API to display anime and manga informa
 - **Bookmark and Favorites**: Save your favorite anime and manga for quick access.
 - **User Profiles**: Create personalized profiles to track your reading history and preferences.
 
-## Dependencies
+# Dependencies
 
-# UI
+## UI
 
 cupertino_icons: ^1.0.6
 flutter_rating_bar: ^4.0.1
@@ -24,26 +24,26 @@ carousel_slider: ^4.2.1
 numberpicker: ^2.1.2
 rive: ^0.12.3
 
-# Navigation
+## Navigation
 
 go_router: ^12.1.1
 
-# State Management
+## State Management
 
 flutter_bloc: ^8.1.3
 
-# Http
+## Http
 
 dio: ^5.3.4
 
-# Firebase
+## Firebase
 
 firebase_core: ^2.23.0
 firebase_auth: ^4.14.1
 cloud_firestore: ^4.13.2
 firebase_storage: ^11.5.2
 
-# Utility
+## Utility
 
 equatable: ^2.0.5
 google_fonts: ^6.1.0
@@ -64,6 +64,6 @@ lottie: ^3.0.0-alpha.2
 shared_preferences: ^2.2.2
 flutter_cache_manager: ^3.3.1
 
-# Splash Screen
+## Splash Screen
 
 flutter_native_splash: ^2.3.6
