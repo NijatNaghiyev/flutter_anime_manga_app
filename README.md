@@ -43,6 +43,6 @@ Offers various utility functions and enhancements for the app.
 Customizes the app's splash screen for a unique startup experience.
 
 <img src="https://github.com/NijatNaghiyev/flutter_anime_manga_app/assets/121041954/b1af1901-eb3c-42be-8a05-2e1654cfe753" width="390" height="844">
-<img src="https://github.com/NijatNaghiyev/flutter_anime_manga_app/assets/121041954/b19b973c-0ce0-4ea2-86ef-53ef005cdbec" width="390" height="844">
+<img src="https://github.com/NijatNaghiyev/flutter_anime_manga_app/assets/121041954/b19b973c-0ce0-4ea2-86ef-53ef005cdbec" width="720" height="332">
 
 
