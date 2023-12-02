@@ -1,6 +1,6 @@
 # flutter_anime_manga_app
 
-### Overview
+# Overview
 
 This is a Flutter app that uses the Jikan API to display anime and manga information.
 
