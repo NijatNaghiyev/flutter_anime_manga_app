@@ -16,7 +16,7 @@ This is a Flutter app that uses the Jikan API to display anime and manga informa
 
 ## UI
 
-Provides essential UI components for a rich user experience.
+Provides essential UI components for a rich user experience. Utilizes animations for enhanced visual appeal and interactivity.
 
 ## Navigation
 
