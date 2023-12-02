@@ -19,7 +19,7 @@ class InfoFAB extends StatelessWidget {
   });
 
   final Data data;
-  final ValueNotifier<List<MylistModel>> mylistValueNotifier;
+  final ValueNotifier<List<MylistModel>?> mylistValueNotifier;
   final List<MylistModel> value;
   final SearchType searchType;
 

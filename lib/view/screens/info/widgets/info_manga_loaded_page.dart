@@ -36,7 +36,7 @@ class InfoMangaLoadedPage extends StatefulWidget {
 }
 
 class _InfoMangaLoadedPageState extends State<InfoMangaLoadedPage> {
-  ValueNotifier<List<MylistModel>> mylistValueNotifier = ValueNotifier([]);
+  ValueNotifier<List<MylistModel>?> mylistValueNotifier = ValueNotifier(null);
 
   Future<void> initData() async {
     await FavoriteMangaFirebaseService.getFavoriteMangaList()
@@ -63,7 +63,7 @@ class _InfoMangaLoadedPageState extends State<InfoMangaLoadedPage> {
       floatingActionButton: ValueListenableBuilder(
           valueListenable: mylistValueNotifier,
           builder: (context, value, _) {
-            if (value.isEmpty) {
+            if (value == null) {
               return const SizedBox.shrink();
             }
 

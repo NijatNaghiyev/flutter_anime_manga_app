@@ -52,7 +52,7 @@ class InfoAnimeLoadedPage extends StatefulWidget {
 }
 
 class _InfoAnimeLoadedPageState extends State<InfoAnimeLoadedPage> {
-  ValueNotifier<List<MylistModel>> mylistValueNotifier = ValueNotifier([]);
+  ValueNotifier<List<MylistModel>?> mylistValueNotifier = ValueNotifier(null);
 
   Future<void> initData() async {
     await FavoriteAnimeFirebaseService.getFavoriteAnimeList()
@@ -79,7 +79,7 @@ class _InfoAnimeLoadedPageState extends State<InfoAnimeLoadedPage> {
       floatingActionButton: ValueListenableBuilder(
           valueListenable: mylistValueNotifier,
           builder: (context, value, _) {
-            if (value.isEmpty) {
+            if (value == null) {
               return const SizedBox.shrink();
             }
 
