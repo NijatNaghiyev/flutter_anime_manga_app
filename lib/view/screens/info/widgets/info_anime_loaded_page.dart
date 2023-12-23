@@ -92,7 +92,9 @@ class _InfoAnimeLoadedPageState extends State<InfoAnimeLoadedPage> {
           }),
       appBar: AppBar(
         backgroundColor: MyColors.primary,
-        leading: const BackButton(),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
         actions: [
           /// Favorite icon
           FavoriteIconValueListenable(data: data, searchType: SearchType.anime),
@@ -102,11 +104,15 @@ class _InfoAnimeLoadedPageState extends State<InfoAnimeLoadedPage> {
             onPressed: () async {
               await Share.shareUri(Uri.parse(data.url ?? 'No url'));
             },
-            icon: const Icon(Icons.ios_share),
+            icon: const Icon(
+              Icons.ios_share,
+              color: Colors.white,
+            ),
           ),
         ],
         title: const Text(
           'FAM',
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
       ),

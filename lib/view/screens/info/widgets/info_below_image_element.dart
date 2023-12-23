@@ -6,6 +6,7 @@ class InfoBelowImageElement extends StatelessWidget {
 
   final String title;
   final String data;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,7 +20,7 @@ class InfoBelowImageElement extends StatelessWidget {
             title,
             textAlign: TextAlign.start,
             style: TextStyle(
-              color: Colors.grey[400],
+              color: Theme.of(context).textTheme.bodySmall!.color,
               fontSize: 14,
             ),
           ),
@@ -30,8 +31,8 @@ class InfoBelowImageElement extends StatelessWidget {
             textAlign: TextAlign.start,
             overflow: TextOverflow.ellipsis,
             softWrap: true,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.bodySmall!.color,
               fontSize: 15,
               fontWeight: FontWeight.w500,
             ),

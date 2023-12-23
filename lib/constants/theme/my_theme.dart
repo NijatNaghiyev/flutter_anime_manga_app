@@ -52,7 +52,7 @@ ThemeData myThemeDark = ThemeData(
 // ! Light Theme
 ThemeData myThemeLight = ThemeData(
   primaryColor: MyColors.primary,
-  scaffoldBackgroundColor: Colors.grey[300],
+  scaffoldBackgroundColor: Colors.grey[200],
   textTheme: const TextTheme(bodySmall: TextStyle(color: Colors.black)),
   highlightColor: Colors.transparent,
   splashColor: Colors.transparent,

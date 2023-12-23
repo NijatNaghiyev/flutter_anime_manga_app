@@ -22,17 +22,19 @@ class _ThemesListState extends State<ThemesList> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ThemesViewElement(
-            title: 'Opening Themes',
-            themesModel: widget.themesModel,
-            musicVideos: widget.musicVideos,
-          ),
+          if (widget.themesModel != null)
+            ThemesViewElement(
+              title: 'Opening Themes',
+              themesModel: widget.themesModel,
+              musicVideos: widget.musicVideos,
+            ),
           const SizedBox(height: 12),
-          ThemesViewElement(
-            title: 'Ending Themes',
-            themesModel: widget.themesModel,
-            musicVideos: widget.musicVideos,
-          ),
+          if (widget.themesModel != null)
+            ThemesViewElement(
+              title: 'Ending Themes',
+              themesModel: widget.themesModel,
+              musicVideos: widget.musicVideos,
+            ),
         ],
       ),
     );

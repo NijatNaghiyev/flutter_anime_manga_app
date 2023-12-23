@@ -218,6 +218,7 @@ class _SeasonalGridViewCardState extends State<SeasonalGridViewCard> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
+                          color: Colors.white,
                         ),
                       ),
                       Text(
@@ -227,11 +228,7 @@ class _SeasonalGridViewCardState extends State<SeasonalGridViewCard> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .color
-                              ?.withOpacity(0.7),
+                          color: Colors.white.withOpacity(0.7),
                         ),
                       ),
                     ],

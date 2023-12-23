@@ -38,7 +38,7 @@ class InfoAdaptation extends StatelessWidget {
                   child: Text(
                     data.relations![index].relation.toString(),
                     style: TextStyle(
-                      color: Colors.grey[300],
+                      color: Theme.of(context).textTheme.bodySmall!.color,
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),

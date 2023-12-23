@@ -97,6 +97,7 @@ class _FavoriteIconValueListenableState
                   )
                 : const Icon(
                     Icons.favorite_border_outlined,
+                    color: Colors.white,
                   ),
           );
         });
