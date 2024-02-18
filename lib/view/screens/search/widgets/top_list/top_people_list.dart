@@ -21,19 +21,27 @@ class TopPeopleList extends StatelessWidget {
           /// Loaded
           if (state is TopPeopleLoadState) {
             final topPeopleData = state.topPeopleModel.data as List;
-            return Column(
-              children: [
-                CustomRowTitle(
-                  title: 'Top People',
-                  onTap: () {
-                    context.pushNamed(
-                      MyRouters.peopleSeeAll.name,
-                      extra: topPeopleData,
-                    );
-                  },
-                ),
-                ListViewHorizontalPeople(topPeopleData: topPeopleData),
-              ],
+            return GestureDetector(
+              onTap: () {
+                context.pushNamed(
+                  MyRouters.peopleSeeAll.name,
+                  extra: topPeopleData,
+                );
+              },
+              child: Column(
+                children: [
+                  CustomRowTitle(
+                    title: 'Top People',
+                    onTap: () {
+                      context.pushNamed(
+                        MyRouters.peopleSeeAll.name,
+                        extra: topPeopleData,
+                      );
+                    },
+                  ),
+                  ListViewHorizontalPeople(topPeopleData: topPeopleData),
+                ],
+              ),
             );
           }
 
