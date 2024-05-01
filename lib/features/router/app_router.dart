@@ -19,16 +19,9 @@ import '../../view/screens/search/widgets/top_list/top_characters_see_all.dart';
 import '../../view/screens/seasonal/seasonal_screen.dart';
 import '../../view/screens/started/started_screen.dart';
 
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKeyHome = GlobalKey<NavigatorState>(debugLabel: 'home');
-final _shellNavigatorKeySearch =
-    GlobalKey<NavigatorState>(debugLabel: 'search');
-final _shellNavigatorKeySeasonal =
-    GlobalKey<NavigatorState>(debugLabel: 'seasonal');
-final _shellNavigatorKeyMylist =
-    GlobalKey<NavigatorState>(debugLabel: 'mylist');
 
 class AppRouter {
+
   AppRouter._();
 
   static GoRouter router = GoRouter(
@@ -120,6 +113,7 @@ class AppRouter {
                 name: MyRouters.search.name,
                 path: '/search',
                 builder: (context, state) => const SearchScreen(),
+
               ),
               GoRoute(
                 name: MyRouters.animeSeeAll.name,
@@ -193,4 +187,14 @@ class AppRouter {
       ),
     ],
   );
+
+
+  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final _shellNavigatorKeyHome = GlobalKey<NavigatorState>(debugLabel: 'home');
+  static final _shellNavigatorKeySearch =
+  GlobalKey<NavigatorState>(debugLabel: 'search');
+  static final _shellNavigatorKeySeasonal =
+  GlobalKey<NavigatorState>(debugLabel: 'seasonal');
+  static final _shellNavigatorKeyMylist =
+  GlobalKey<NavigatorState>(debugLabel: 'mylist');
 }
